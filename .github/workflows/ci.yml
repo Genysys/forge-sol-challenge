@@ -28,4 +28,4 @@ jobs:
 
       - name: Run tests
         run: |
-          forge test --match-contract HodlChallenge --fork-url $RPC_URL --fork-block-number 14850000
+          forge test --match-contract HodlChallenge --fork-url $ETH_RPC_URL --fork-block-number 14850000
