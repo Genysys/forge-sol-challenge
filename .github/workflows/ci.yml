@@ -8,12 +8,15 @@ on:
 
 env:
   FOUNDRY_PROFILE: ci
+  ETH_RPC_URL:  ${{ secrets.RPC_URL }}
 
 jobs:
   run-ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
@@ -25,8 +28,4 @@ jobs:
 
       - name: Run tests
         run: |
-          touch .env 
-          echo FOUNDRY_ETH_RPC_URL=${{ secrets.RPC_URL }} >> .env 
-          npm run test
-        env:
-          FOUNDRY_ETH_RPC_URL: ${{ secrets.RPC_URL }}
+          forge test --match-contract HodlChallenge --fork-url $ETH_RPC_URL --fork-block-number 14850000
